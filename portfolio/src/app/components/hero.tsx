@@ -32,17 +32,15 @@ const Hero = ({ children, url }: Props): JSX.Element => {
                 }}
             />
             <Grid container>
-                <Grid item md={8}>
-                    <Box
-                        sx={{
-                            position: 'relative',
-                            p: { xs: 3, md: 6 },
-                            pr: { md: 0 },
-                        }}
-                    >
-                        {children}
-                    </Box>
-                </Grid>
+                <Box
+                    sx={{
+                        position: 'relative',
+                        p: { xs: 3, md: 6 },
+                        pr: { md: 0 },
+                    }}
+                >
+                    {children}
+                </Box>
             </Grid>
         </Paper>
     )

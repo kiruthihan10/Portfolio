@@ -1,11 +1,13 @@
 'use client'
-import { Card, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material'
-import Hero from './components/hero'
+import { Box, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material'
+import Card from '@mui/material/Card';
+import Hero from '../components/hero'
 import { HomeString } from '@/strings'
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Link from 'next/link';
+import Section from '../components/section';
 
 export default async function Home() {
     const renderInfoCard = () => {
@@ -34,6 +36,22 @@ export default async function Home() {
             </Card>
         )
     }
+
+    const renderEducationHistory = () => {
+        const educations = HomeString.education.content
+        let educationsList = []
+        for (let education of educations) {
+            educationsList.push(
+                <Card variant="outlined">
+                    <Box sx={{ fontWeight: 'bold' }}>{education.dataRange}</Box>
+                    <div>{education.institue}</div>
+                    <div>{education.course}</div>
+                </Card>
+            )
+        }
+        return <Stack direction="row" spacing={2}>{educationsList}</Stack>
+    }
+
     return (
         <main>
             <Hero url='https://source.unsplash.com/random?wallpapers'>
@@ -56,17 +74,10 @@ export default async function Home() {
             </Hero>
             <Grid container spacing={2}>
                 <Grid item xs={10}>
-                    <Typography variant="h4" color="inherit" gutterBottom>
-                        {HomeString.about.head}
-                    </Typography>
-                    <Typography variant="h5" color="inherit" gutterBottom>
-                        {HomeString.about.subhead}
-                    </Typography>
-                    <Typography color="inherit" gutterBottom>
-                        {HomeString.about.content}
-                    </Typography>
+                    <Section content={HomeString.about.content} heading={HomeString.about.head} subHeading={HomeString.about.subhead} />
                 </Grid>
             </Grid>
+            <Section content={renderEducationHistory()} heading='Education' subHeading="What I've learned so far" />
         </main>
     )
 }

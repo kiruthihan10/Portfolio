@@ -2,7 +2,7 @@
 
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { Button, Container, Divider, Grid, Stack, Typography } from '@mui/material'
+import { Button, Container, CssBaseline, Divider, Grid, Stack, ThemeProvider, Typography, createTheme } from '@mui/material'
 import { useGetters } from '@/store/store'
 import { topics } from '@/constant'
 
@@ -19,12 +19,18 @@ interface Props {
 
 const RootLayout = ({ children }: Props): JSX.Element => {
   const { currentTopic } = useGetters()
+  const theme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
   return (
     <html lang="en">
       <head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
       <body>
+        <ThemeProvider theme={theme}>
         <Container style={{ paddingTop: 10 }}>
           <Grid container spacing={2}
             alignItems="center">
@@ -38,14 +44,15 @@ const RootLayout = ({ children }: Props): JSX.Element => {
                 divider={<Divider orientation="vertical" flexItem />}
                 justifyContent="right"
                 alignItems="right">
-                <Button variant={currentTopic === topics.Home ? 'contained' : 'outlined'} size='large' sx={{width:"100%"}}>Home</Button>
-                <Button variant='outlined' size='large' sx={{width:"100%"}}>Games</Button>
-                <Button variant='outlined' size='large' sx={{width:"100%"}}>Critical Analysis</Button>
+                <Button variant={currentTopic === topics.Home ? 'contained' : 'outlined'} size='large' sx={{ width: "100%" }}>Home</Button>
+                <Button variant='outlined' size='large' sx={{ width: "100%" }}>Games</Button>
+                <Button variant='outlined' size='large' sx={{ width: "100%" }}>Critical Analysis</Button>
               </Stack>
             </Grid>
           </Grid>
           {children}
         </Container>
+        </ThemeProvider>
       </body>
     </html>
   )

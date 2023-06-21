@@ -9,12 +9,12 @@ export const HomeString = {
         subhead: "What I've Learned so far",
         content: [
             {
-                dataRange: '2003 - 2016',
+                dateRange: '2003 - 2016',
                 institue: "Shivananda National School, Batticaloa, Sri Lanka.",
                 course: "Physical Science"
             },
             {
-                dataRange: '2017 - 2022',
+                dateRange: '2017 - 2022',
                 institue: "University of Moratuwa, Moratuwa, Sri Lanka.",
                 course: "BSc Engineering"
             }

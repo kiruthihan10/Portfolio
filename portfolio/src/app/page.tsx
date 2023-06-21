@@ -1,5 +1,5 @@
 'use client'
-import { Box, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material'
+import { Box, CardContent, CardMedia, Grid, Slider, Stack, Typography } from '@mui/material'
 import Card from '@mui/material/Card';
 import Hero from '../components/hero'
 import { HomeString } from '@/strings'
@@ -7,7 +7,8 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Link from 'next/link';
-import Section from '../components/section';
+import Section, { SectionLevels } from '../components/section';
+import { skills } from '@/constant';
 
 export default async function Home() {
     const renderInfoCard = () => {
@@ -42,14 +43,31 @@ export default async function Home() {
         let educationsList = []
         for (let education of educations) {
             educationsList.push(
-                <Card variant="outlined">
-                    <Box sx={{ fontWeight: 'bold' }}>{education.dataRange}</Box>
+                <Card variant="outlined" key={education.dateRange}>
+                    {/* <Box sx={{ fontWeight: 'bold' }}>{education.dataRange}</Box>
                     <div>{education.institue}</div>
-                    <div>{education.course}</div>
+                    <div>{education.course}</div> */}
+                    <Section heading={education.dateRange} subHeading={education.institue} content={education.course} level={SectionLevels.secondary} />
                 </Card>
             )
         }
         return <Stack direction="row" spacing={2}>{educationsList}</Stack>
+    }
+
+    const renderSkills = () => {
+        let skillElements: JSX.Element[] = [];
+        for (const skill of skills) {
+            skillElements.push(
+                <Grid container spacing={2}>
+                    <Grid item xs={2}>
+                        {skill.name}
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Slider value={skill.value} disabled />
+                    </Grid>
+                </Grid>)
+        }
+        return skillElements
     }
 
     return (
@@ -77,7 +95,8 @@ export default async function Home() {
                     <Section content={HomeString.about.content} heading={HomeString.about.head} subHeading={HomeString.about.subhead} />
                 </Grid>
             </Grid>
-            <Section content={renderEducationHistory()} heading='Education' subHeading="What I've learned so far" />
+            <Section content={renderEducationHistory()} heading='Education' />
+            <Section content={renderSkills()} heading={'Skills & Language'} subHeading='What I bring to the table' />
         </main>
     )
 }
